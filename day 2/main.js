@@ -5,24 +5,21 @@ console.log(input);
 let total = 0;
 
 input.split('\n').forEach((value) => {
-  if (value.split('\t').length < 2) {
+  let line = value;
+  if (line.split(/\s/).length < 2) {
     return;
   }
 
-  let smallest = Infinity;
-  let largest = 0;
+  line.split(/\s/).forEach((value) => {
+    let valueIntA = parseInt(value);
+    line.split(/\s/).forEach((value) => {
+      let valueIntB = parseInt(value);
 
-  value.split('\t').forEach((value) => {
-    let valueInt = parseInt(value);
-    if (valueInt < smallest) {
-      smallest = valueInt;
-    }
-    if (valueInt > largest) {
-      largest = valueInt;
-    }
+      if (valueIntA !== valueIntB && valueIntA / valueIntB === parseInt(valueIntA / valueIntB)) {
+        total += valueIntA / valueIntB;
+      }
+    });
   });
-
-  total += largest - smallest;
 });
 
 console.log(total);
