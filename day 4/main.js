@@ -12,14 +12,17 @@ input.split('\n').forEach((value) => {
   let lineValid = true;
   let lineSplit = value.split(/\s/);
 
-  lineSplit.forEach((value) => {
+  lineSplit.forEach((value, index) => {
     if (!lineValid) {
       return;
     }
 
-    if (lineSplit.reduce((total, currentValue) => {
-      return currentValue === value ? total+1 : total
-    }, 0) >= 2) {
+    if (lineSplit.reduce((total, currentValue, currentIndex) => {
+      if (currentIndex !== index && (currentValue === value || currentValue.split('').sort().join('') === value.split('').sort().join(''))) {
+        return total + 1;
+      }
+      return total;
+    }, 0) >= 1) {
       lineValid = false;
     }
   });
